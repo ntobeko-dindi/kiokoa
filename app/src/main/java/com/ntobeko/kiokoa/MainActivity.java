@@ -12,14 +12,10 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.ntobeko.kiokoa.databinding.ActivityMainBinding;
-import com.ntobeko.kiokoa.models.Credential;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,8 +25,6 @@ public class MainActivity extends AppCompatActivity {
     MaterialButton bAdd;
     TextInputEditText etName, etPassword, etUserName;
 
-    ArrayList<Credential> credentials = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +33,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
-
-        credentials.add(new Credential("facebook","xcoding", "12345"));
-        credentials.add(new Credential("facebook","xcoding", "12345"));
-        credentials.add(new Credential("facebook","xcoding", "12345"));
-        credentials.add(new Credential("facebook","xcoding", "12345"));
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();

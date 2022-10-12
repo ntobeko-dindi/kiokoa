@@ -8,4 +8,16 @@ public class Credential {
         this.userName = userName;
         this.password = password;
     }
+
+    public String getSiteName() {
+        return siteName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }
