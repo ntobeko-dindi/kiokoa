@@ -20,4 +20,13 @@ public class Credential {
     public String getPassword() {
         return password;
     }
+
+    @Override
+    public String toString() {
+        return "Credential{" +
+                "siteName='" + siteName + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

@@ -1,4 +1,4 @@
-package com.ntobeko.kiokoa.models;
+package com.ntobeko.kiokoa.Data;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.ntobeko.kiokoa.R;
+import com.ntobeko.kiokoa.models.Credential;
+
 import java.util.ArrayList;
 
 public class ListAdapter extends ArrayAdapter<Credential> {

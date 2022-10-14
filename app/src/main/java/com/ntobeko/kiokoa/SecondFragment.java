@@ -29,13 +29,11 @@ public class SecondFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(SecondFragment.this)
-                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
-            }
-        });
+        System.out.println("=======================================================================================================================================");
+        //System.out.println("" + savedInstanceState.getString("key2", "fuck off"));
+        System.out.println("=======================================================================================================================================");
+
+        binding.textviewSecond.setText("value");
     }
 
     @Override
