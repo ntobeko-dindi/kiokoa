@@ -45,18 +45,25 @@ public class SecondFragment extends Fragment {
 
         Cursor cursor = new DBHelper(getContext()).getDataById(sharedPrefString);
 
+        if(cursor.getCount() == 0)
+            return;
+
         cursor.moveToNext();
 
         binding.siteName.setText(cursor.getString(0));
         binding.username.setText(cursor.getString(1));
-        //Crypto cipher = new Encryption(cursor.getString(0), cursor.getString(3), true);
-       // binding.username.setText(cipher.encrypt());
+        Encryption encryption = new Encryption(cursor.getString(0), cursor.getString(2), true);
 
+        String cipher = encryption.encrypt();
 
+        if(cipher.length() > 50)
+            cipher = cipher.substring(0,50);
+
+       binding.password.setText(cipher);
 
         binding.btnCopy.setOnClickListener(v -> {
             ClipboardManager clipboard = (ClipboardManager)getContext().getSystemService(getContext().CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("", "ntobeko dindi");
+            ClipData clip = ClipData.newPlainText("", binding.password.getText().toString().trim());
             clipboard.setPrimaryClip(clip);
             Toast.makeText(getContext(), "Copied to clipboard!", Toast.LENGTH_LONG).show();
         });
