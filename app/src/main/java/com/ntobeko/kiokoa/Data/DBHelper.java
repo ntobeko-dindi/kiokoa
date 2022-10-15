@@ -6,10 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.ntobeko.kiokoa.interfaces.IStorage;
 import com.ntobeko.kiokoa.models.Credential;
 
 
-public class DBHelper extends SQLiteOpenHelper {
+public class DBHelper extends SQLiteOpenHelper implements IStorage<Credential,Cursor> {
 
     public DBHelper(Context context) {
         super(context, "Credentials.db", null, 1);
@@ -25,30 +26,33 @@ public class DBHelper extends SQLiteOpenHelper {
         DB.execSQL("drop Table if exists Credentials");
     }
 
-    public Boolean insertuserdata(Credential credential) {
+    @Override
+    public boolean deleteData(Credential data) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("Select * from Credentials where siteName = ?", new String[]{data.toString()});
+        if(cursor.getCount()>0) {
+            long result = DB.delete("Credentials", "siteName=?", new String[]{data.toString()});
+
+            return result != -1;
+        }
+        else { return false; }
+    }
+
+    @Override
+    public boolean writeData(Credential data) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("siteName", credential.getSiteName());
-        contentValues.put("userName", credential.getUserName());
-        contentValues.put("password", credential.getPassword());
+        contentValues.put("siteName", ((Credential)data).getSiteName());
+        contentValues.put("userName", ((Credential)data).getUserName());
+        contentValues.put("password", ((Credential)data).getPassword());
         long result = DB.insert("Credentials", null, contentValues);
 
         return result != -1;
     }
 
-    public Cursor getdata() {
+    @Override
+    public Cursor getData() {
         SQLiteDatabase DB = this.getWritableDatabase();
         return DB.rawQuery("Select * from Credentials", null);
-    }
-
-    public Boolean deleteuserdata(String siteName) {
-        SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from Credentials where siteName = ?", new String[]{siteName});
-        if(cursor.getCount()>0) {
-            long result = DB.delete("Credentials", "siteName=?", new String[]{siteName});
-
-            return result != -1;
-        }
-        else { return false; }
     }
 }

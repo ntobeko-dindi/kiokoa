@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 public class ListAdapter extends ArrayAdapter<Credential> {
 
-    public ListAdapter(Context context, ArrayList<Credential> userArrayList){
-        super(context, R.layout.list_view,userArrayList);
+    public ListAdapter(Context context, ArrayList<Credential> list){
+        super(context, R.layout.list_view,list);
     }
 
     @NonNull

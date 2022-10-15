@@ -14,12 +14,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.ntobeko.kiokoa.Data.DBHelper;
 import com.ntobeko.kiokoa.databinding.ActivityMainBinding;
 import com.ntobeko.kiokoa.models.Credential;
-import com.ntobeko.kiokoa.models.LocalStorageCredentialsCRUD;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -68,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             }
             Credential credential = new Credential(siteName, username, password);
 
-            String message = DB.insertuserdata(credential) ? "New Entry Inserted" : "New Entry Not Inserted";
+            String message = DB.writeData(credential) ? "New Entry Inserted" : "New Entry Not Inserted";
                 Snackbar.make(view, message, Snackbar.LENGTH_LONG).setAction("Action", null).show();
         });
 

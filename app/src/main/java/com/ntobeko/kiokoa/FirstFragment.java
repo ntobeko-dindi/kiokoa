@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
@@ -40,10 +42,10 @@ public class FirstFragment extends Fragment {
         DB = new DBHelper(getContext());
         credentials.clear();
 
-        Cursor cursor = DB.getdata();
+        Cursor cursor = DB.getData();
 
-        if(cursor.getCount()==0) {
-            Snackbar.make(view, "No Entry Exists", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        if(cursor.getCount() == 0) {
+            Toast.makeText(getContext(), "No Entry Exists", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -63,7 +65,7 @@ public class FirstFragment extends Fragment {
             args.putString ("key2", "dindi");
 
             NavHostFragment.findNavController(FirstFragment.this)
-                    .navigate(R.id.action_FirstFragment_to_SecondFragment, args);
+                    .navigate(R.id.action_FirstFragment_to_SecondFragment);
         });
     }
 
