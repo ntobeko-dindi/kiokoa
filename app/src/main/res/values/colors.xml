@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="appPrimaryColor">#025557</color>
     <color name="buttonColor">#FF9800</color>
+    <color name="red">#F44336</color>
 </resources>

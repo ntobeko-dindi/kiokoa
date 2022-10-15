@@ -1,15 +1,26 @@
 package com.ntobeko.kiokoa;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.ntobeko.kiokoa.data.DBHelper;
 import com.ntobeko.kiokoa.databinding.FragmentSecondBinding;
+import com.ntobeko.kiokoa.models.Crypto;
+import com.ntobeko.kiokoa.models.Encryption;
 
 public class SecondFragment extends Fragment {
 
@@ -29,11 +40,33 @@ public class SecondFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        System.out.println("=======================================================================================================================================");
-        //System.out.println("" + savedInstanceState.getString("key2", "fuck off"));
-        System.out.println("=======================================================================================================================================");
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        String sharedPrefString = sharedPref.getString("position", "");
 
-        binding.textviewSecond.setText("value");
+        Cursor cursor = new DBHelper(getContext()).getDataById(sharedPrefString);
+
+        cursor.moveToNext();
+
+        binding.siteName.setText(cursor.getString(0));
+        binding.username.setText(cursor.getString(1));
+        //Crypto cipher = new Encryption(cursor.getString(0), cursor.getString(3), true);
+       // binding.username.setText(cipher.encrypt());
+
+
+
+        binding.btnCopy.setOnClickListener(v -> {
+            ClipboardManager clipboard = (ClipboardManager)getContext().getSystemService(getContext().CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("", "ntobeko dindi");
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(getContext(), "Copied to clipboard!", Toast.LENGTH_LONG).show();
+        });
+
+        binding.deleteBtn.setOnClickListener(v -> {
+            new DBHelper(getContext()).deleteData(sharedPrefString);
+            NavHostFragment.findNavController(SecondFragment.this)
+                    .navigate(R.id.action_SecondFragment_to_FirstFragment);
+        });
+
     }
 
     @Override

@@ -11,7 +11,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.ntobeko.kiokoa.Data.DBHelper;
+import com.ntobeko.kiokoa.data.DBHelper;
 import com.ntobeko.kiokoa.databinding.ActivityMainBinding;
 import com.ntobeko.kiokoa.models.Credential;
 

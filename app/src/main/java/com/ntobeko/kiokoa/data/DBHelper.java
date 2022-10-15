@@ -1,4 +1,4 @@
-package com.ntobeko.kiokoa.Data;
+package com.ntobeko.kiokoa.data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,7 +10,7 @@ import com.ntobeko.kiokoa.interfaces.IStorage;
 import com.ntobeko.kiokoa.models.Credential;
 
 
-public class DBHelper extends SQLiteOpenHelper implements IStorage<Credential,Cursor> {
+public class DBHelper extends SQLiteOpenHelper implements IStorage<Credential,Cursor,String> {
 
     public DBHelper(Context context) {
         super(context, "Credentials.db", null, 1);
@@ -27,11 +27,11 @@ public class DBHelper extends SQLiteOpenHelper implements IStorage<Credential,Cu
     }
 
     @Override
-    public boolean deleteData(Credential data) {
+    public boolean deleteData(String key) {
         SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from Credentials where siteName = ?", new String[]{data.toString()});
+        Cursor cursor = DB.rawQuery("Select * from Credentials where siteName = ?", new String[]{key});
         if(cursor.getCount()>0) {
-            long result = DB.delete("Credentials", "siteName=?", new String[]{data.toString()});
+            long result = DB.delete("Credentials", "siteName=?", new String[]{key});
 
             return result != -1;
         }
@@ -54,5 +54,11 @@ public class DBHelper extends SQLiteOpenHelper implements IStorage<Credential,Cu
     public Cursor getData() {
         SQLiteDatabase DB = this.getWritableDatabase();
         return DB.rawQuery("Select * from Credentials", null);
+    }
+
+    @Override
+    public Cursor getDataById(String id) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        return DB.rawQuery("Select * from Credentials where siteName = ?", new String[]{id});
     }
 }

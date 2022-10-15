@@ -1,5 +1,7 @@
 package com.ntobeko.kiokoa;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,13 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.ntobeko.kiokoa.Data.DBHelper;
+import com.ntobeko.kiokoa.data.DBHelper;
 import com.ntobeko.kiokoa.databinding.FragmentFirstBinding;
 import com.ntobeko.kiokoa.models.Credential;
-import com.ntobeko.kiokoa.Data.ListAdapter;
+import com.ntobeko.kiokoa.data.ListAdapter;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class FirstFragment extends Fragment {
 
@@ -60,9 +60,10 @@ public class FirstFragment extends Fragment {
         binding.listview.setClickable(true);
         binding.listview.setOnItemClickListener((parent, view1, position, id) -> {
 
-            Bundle args = new Bundle();
-            args.putString ("key1", "ntobeko");
-            args.putString ("key2", "dindi");
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("position", "" + credentials.get(position).getSiteName());
+        editor.apply();
 
             NavHostFragment.findNavController(FirstFragment.this)
                     .navigate(R.id.action_FirstFragment_to_SecondFragment);

@@ -1,4 +1,4 @@
-package com.ntobeko.kiokoa.Data;
+package com.ntobeko.kiokoa.data;
 
 import android.content.Context;
 import android.view.LayoutInflater;
